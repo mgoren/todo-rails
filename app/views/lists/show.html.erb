@@ -4,7 +4,7 @@
 
 <h1>
   <%= link_to @list.name, edit_list_path(@list) %>
-  <%= link_to "(x)", list_path(@list), data: {confirm: "Are you sure?", method: "delete"} %>
+  <%= link_to '<i class="glyphicon glyphicon-trash"></i>'.html_safe, list_path(@list), data: {confirm: "Are you sure?", method: "delete"} %>
   <small><%= @list.description %></small>
 </h1>
 
