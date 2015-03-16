@@ -2,11 +2,11 @@
 
 <p><%= link_to "Home", lists_path %></p>
 
-<h1><%= @list.name %></h1>
-<h4><%= @list.description %></h4>
-
-<p><%= link_to "Edit", edit_list_path(@list) %></p>
-<p><%= link_to "Delete", list_path(@list), data: {confirm: "Are you sure?", method: "delete"} %></p>
+<h1>
+  <%= link_to @list.name, edit_list_path(@list) %>
+  <%= link_to "(x)", list_path(@list), data: {confirm: "Are you sure?", method: "delete"} %>
+  <small><%= @list.description %></small>
+</h1>
 
 <p><%= link_to "Add a task", new_list_task_path(@list) %> </p>
 
@@ -15,9 +15,8 @@
   <ul>
     <% @list.tasks.each do |task| %>
       <li>
-        <%= task.description %> | 
-        <%= link_to "Edit", edit_list_task_path(@list, task) %> </li> |
-        <%= link_to "Delete", list_task_path(@list, task), data: {confirm: "Are you sure?", method: "delete"} %>
+        <%= link_to task.description, edit_list_task_path(@list, task) %>
+        <%= link_to "(x)", list_task_path(@list, task), data: {confirm: "Are you sure?", method: "delete"} %>
       </li>
     <% end %>
   </ul>
