@@ -12,10 +12,22 @@
 
 <% if @list.tasks.any? %>
   <h4>Here are the tasks for this list:</h4>
-  <ul>
+  <ul class="list-unstyled">
     <% @list.tasks.each do |task| %>
-      <li>
-        <%= link_to task.description, edit_list_task_path(@list, task) %>
+      <li class="inline">
+        <% if task.done %>
+          <span class="strikethrough"><%= link_to task.description, edit_list_task_path(@list, task) %></span>
+        <% else %>
+          <%= link_to task.description, edit_list_task_path(@list, task) %>
+        <% end %>
+
+        <!-- mark as done -->
+        <%= form_for [@list, task] do |f| %>
+          <input name="_method" type="hidden" value="patch" />
+          <%= f.hidden_field :done, :value => true %>
+          <button type="submit" class="btn btn-primary btn-xs">done</button>
+        <% end %>
+
         <%= link_to "(x)", list_task_path(@list, task), data: {confirm: "Are you sure?", method: "delete"} %>
       </li>
     <% end %>
